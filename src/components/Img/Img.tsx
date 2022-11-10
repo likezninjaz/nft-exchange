@@ -12,9 +12,16 @@ type TImg = {
   imageStyle?: TEmotionProps;
   className?: string;
   hasPlaceholder?: boolean;
+  onClick?: () => void;
 };
 
-export const Img = ({ src, alt = '', hasPlaceholder, ...rest }: TImg) => {
+export const Img = ({
+  src,
+  alt = '',
+  hasPlaceholder,
+  onClick,
+  ...rest
+}: TImg) => {
   const isMounted = useMountedState();
   const { ref, inView } = useInView({ rootMargin: '200px' });
   const [isLoaded, setLoaded] = useState(false);
@@ -61,5 +68,5 @@ export const Img = ({ src, alt = '', hasPlaceholder, ...rest }: TImg) => {
     return <Placeholder {...{ ...rest, hasPlaceholder, ref }} />;
   }
 
-  return <StyledImg {...{ ...rest, src, alt }} />;
+  return <StyledImg {...{ ...rest, src, onClick, alt }} />;
 };

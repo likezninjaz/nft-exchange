@@ -35,8 +35,10 @@ export const StyledModal = styled.div<{
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
 `;
 
-export const BodyWrapper = styled.div`
-  max-height: 70vh;
+export const BodyWrapper = styled.div<{
+  height: string;
+}>`
+  max-height: ${({ height }) => height || '70vh'};
   overflow-y: auto;
 `;
 

@@ -32,7 +32,7 @@ export const Introducing = styled(Typography)`
   }
 `;
 
-export const NftsItem = styled.div`
+export const NftsItem = styled.div<{ selected?: boolean }>`
   position: relative;
   margin: 10px;
   width: 350px;
@@ -40,13 +40,24 @@ export const NftsItem = styled.div`
   background-color: ${({ theme }) => theme.colors.grayDark};
   box-shadow: 0 0 8px 0 rgb(0 0 0 / 30%);
   border-radius: 5px;
-  overflow: hidden;
   color: ${({ theme }) => theme.colors.white};
   transition: box-shadow 0.3s ease;
   cursor: pointer;
 
-  &:hover {
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px;
+  &:before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100%);
+    transition: opacity 0.3s ease;
+    filter: blur(10px);
+    opacity: ${({ selected }) => (selected ? 0.7 : 0)};
+    transition: opacity 0.3s;
+    border-radius: inherit;
   }
 
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
@@ -59,6 +70,7 @@ export const ImageWrapper = styled.div`
   position: relative;
   overflow: hidden;
   height: 350px;
+  border-radius: 5px 5px 0 0;
 
   img {
     transition: all 0.3s ease;

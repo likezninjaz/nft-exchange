@@ -76,7 +76,7 @@ export const StyledButton = styled.button<TStyledButton>`
     bottom: 0;
     left: 0;
     background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100%);
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease;
     transform: translate3d(0px, 0, 0) scale(0.95);
     filter: blur(10px);
     opacity: 0;

@@ -51,14 +51,18 @@ export const NftSelectModal = ({
 
   return (
     <>
-      <Modal {...{ isOpen, onClose }} maxWidth="900px">
+      <Modal {...{ isOpen, onClose }} maxWidth="1280px">
         <Wrapper>
           <Typography variant="h2">Select NFT for the exchange</Typography>
           <NftsWrapper>
             {userNfts.map(
               (nft, index) =>
                 nft.image && (
-                  <NftsItem key={index} onClick={() => setSelectedNft(nft)}>
+                  <NftsItem
+                    key={index}
+                    onClick={() => setSelectedNft(nft)}
+                    selected={selectedNft === nft}
+                  >
                     <ImageWrapper>
                       <Img hasPlaceholder src={nft.image} />
                     </ImageWrapper>

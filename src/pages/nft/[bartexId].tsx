@@ -4,16 +4,17 @@ import { AbiItem } from 'web3-utils';
 
 import NFTBartexAbi from 'contracts/NFT-bartex.json';
 import ERC721Abi from 'contracts/ERC721.json';
+import { getContractAddressByChainId, getNodeByChainId } from 'utils';
 export { Nft as default } from 'layouts';
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   try {
     const web3 = new Web3(
-      new Web3.providers.HttpProvider(process.env.NEXT_PUBLIC_NODE)
+      new Web3.providers.HttpProvider(getNodeByChainId(+query.chainId))
     );
     const contract = new web3.eth.Contract(
       NFTBartexAbi as AbiItem | AbiItem[],
-      process.env.NEXT_PUBLIC_BARTEX_CONTRACT_ADDRESS
+      getContractAddressByChainId(+query.chainId)
     );
     const bartex = await contract.methods.bartexes(query.bartexId).call();
     const nftContract = new web3.eth.Contract(
@@ -34,6 +35,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
           image: String(metadata.image),
           contractAddress: bartex.contractAddress,
           tokenUri: tokenUri,
+          chainId: query.chainId,
         },
       },
     };

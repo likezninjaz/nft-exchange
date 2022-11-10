@@ -5,7 +5,7 @@ require('hardhat-abi-exporter');
 require('@nomiclabs/hardhat-etherscan');
 require('@nomiclabs/hardhat-web3');
 
-const { alchemyApiKey, privateKey, bscApiKey } = require('./secrets.json');
+const { alchemyApiKey, privateKey, bscApiKey, polygonTestnetApiKey } = require('./secrets.json');
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
@@ -40,6 +40,11 @@ module.exports = {
       gasPrice: 20000000000,
       accounts: [`0x${privateKey}`]
     },
+    testnetPolygon: {
+      url: `https://polygon-mumbai.g.alchemy.com/v2/${alchemyApiKey}`,
+      chainId: 80001,
+      accounts: [`${privateKey}`]
+    },
   },
   paths: {
     sources: './src/contracts',
@@ -56,7 +61,8 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      bscTestnet: bscApiKey
+      bscTestnet: bscApiKey,
+      polygonMumbai: polygonTestnetApiKey,
     }
   },
 };

@@ -8,6 +8,7 @@ export type TNft = {
 
 export type TBartex = TNft & {
   bartexId: number;
+  chainId: number;
 };
 
 export type TBartexDetail = TBartex & {

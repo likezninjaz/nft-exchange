@@ -7,7 +7,10 @@ export const StyledFooter = styled.footer`
   justify-content: center;
   flex: 0 0 auto;
   padding: 25px;
+  margin: 0 auto;
+  width: ${({ theme }) => theme.media.desktop};
   user-select: none;
+  border-top: ${({ theme }) => `1px solid ${theme.colors.grayDark}`};
 
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     flex-direction: column-reverse;

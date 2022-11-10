@@ -10,11 +10,11 @@ async function main() {
   // console.log("Waiting for confirmation");
   // await NFTBartexContract.deployed();
 
-  console.log("Verify the contract:", '0x023405Df595623eeaa36857E0F4C388b2EFDBB0C');
+  console.log("Verify the contract:", '0x72CF00dDA0C877C588B7eCdaDc6F13FbAdb15BDF');
 
   try {
     await hre.run('verify:verify', {
-      address: '0x023405Df595623eeaa36857E0F4C388b2EFDBB0C',
+      address: '0x72CF00dDA0C877C588B7eCdaDc6F13FbAdb15BDF',
       network: hre.network.name,
     });
   } catch (error) {

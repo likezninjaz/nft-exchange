@@ -8,6 +8,8 @@ export const getMoralisNetworkByChainId = (chainId: number) => {
       return EvmChain.RINKEBY;
     case 137:
       return EvmChain.POLYGON;
+    case 80001:
+      return EvmChain.MUMBAI;
     case 25:
       return EvmChain.CRONOS;
     case 56:

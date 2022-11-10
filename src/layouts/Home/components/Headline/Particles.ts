@@ -11,10 +11,9 @@ export const particlesOptions = {
   interactivity: {
     events: {
       onClick: {
-        enable: true,
-        mode: 'push',
+        enable: false,
       },
-      resize: true,
+      resize: false,
     },
     modes: {
       push: {

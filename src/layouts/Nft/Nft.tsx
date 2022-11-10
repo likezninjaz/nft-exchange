@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useToggle } from 'react-use';
 import { useCallback, useEffect } from 'react';
 import Moralis from 'moralis';
+import { css } from '@emotion/react';
 
 import { useAuth, useItems } from 'hooks';
 import { Button, Img, Typography } from 'components';
@@ -10,12 +11,13 @@ import { TNft } from '@types';
 
 import { Container, Info, Wrapper } from './Nft.styled';
 import { NftProps } from './types';
-import { NftSelectModal } from './components';
+import { NftSelectModal, PreviewModal } from './components';
 
 export const Nft = ({ bartex }: NftProps) => {
   const { account, chainId } = useAuth();
   const [userNfts, { addToEnd: addUserNftsToEnd }] = useItems<TNft>([]);
   const [isModalOpen, setModalOpen] = useToggle(false);
+  const [isPreviewOpen, setPreviewOpen] = useToggle(false);
 
   const getUserNfts = useCallback(async () => {
     try {
@@ -63,20 +65,24 @@ export const Nft = ({ bartex }: NftProps) => {
       <Container>
         <Wrapper>
           <Img
-            // src={nfts[0]?.image}
             src={bartex.image}
-            imageStyle={{
-              width: 'calc(50% - 40px)',
-              height: 500,
-              objectFit: 'cover',
-              zIndex: 2,
-              borderRadius: 5,
-            }}
+            onClick={() => setPreviewOpen(true)}
+            imageStyle={({ theme }) => css`
+              width: calc(50% - 40px);
+              object-fit: cover;
+              z-index: 2;
+              border-radius: 5px;
+              cursor: zoom-in;
+
+              @media (max-width: ${theme.media.tablet}) {
+                width: 100%;
+              }
+            `}
           />
           <Info>
             <Typography variant="h1">{bartex.name}</Typography>
             <Typography typographyStyle={{ marginTop: 10 }}>
-              {bartex.description}
+              Description: {bartex.description}
             </Typography>
             <Typography typographyStyle={{ marginTop: 10 }}>
               Contract: {bartex.contractAddress}
@@ -95,6 +101,11 @@ export const Nft = ({ bartex }: NftProps) => {
         userNfts={userNfts}
         selectedBartexId={bartex.bartexId}
         onClose={() => setModalOpen(false)}
+      />
+      <PreviewModal
+        isOpen={isPreviewOpen}
+        src={bartex.image}
+        onClose={() => setPreviewOpen(false)}
       />
     </>
   );

@@ -11,6 +11,7 @@ type TModal = {
   isOpen?: boolean;
   withCloseIcon?: boolean;
   maxWidth?: string;
+  height?: string;
   children?: ReactNode;
   onClose?: () => void;
 };
@@ -21,6 +22,7 @@ export const Modal = ({
   isOpen,
   withCloseIcon = true,
   maxWidth,
+  height,
   children,
   onClose,
 }: TModal) => {
@@ -57,7 +59,7 @@ export const Modal = ({
               }}
             />
           )}
-          <BodyWrapper ref={bodyWrapperRef}>
+          <BodyWrapper ref={bodyWrapperRef} height={height}>
             <Body>{children}</Body>
           </BodyWrapper>
         </StyledModal>

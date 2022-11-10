@@ -5,6 +5,7 @@ import { Button, Img, Modal, Typography } from 'components';
 import { useAuth } from 'hooks';
 import NFTBartexAbi from 'contracts/NFT-bartex.json';
 import { TNft } from '@types';
+import { getContractAddressByChainId } from 'utils';
 
 import { ImageWrapper, NftsItem } from '../../Home.styled';
 
@@ -23,7 +24,7 @@ export const CreateModal = ({
   userNfts,
   onSuccess,
 }: TNftSelectModal) => {
-  const { account, web3 } = useAuth();
+  const { account, web3, chainId } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedNft, setSelectedNft] = useState(null);
   const handleConfirmClick = useCallback(async () => {
@@ -31,7 +32,7 @@ export const CreateModal = ({
 
     const contract = new web3.eth.Contract(
       NFTBartexAbi as AbiItem | AbiItem[],
-      process.env.NEXT_PUBLIC_BARTEX_CONTRACT_ADDRESS,
+      getContractAddressByChainId(chainId),
       {
         from: account,
       }
@@ -44,18 +45,22 @@ export const CreateModal = ({
     onSuccess();
     setIsLoading(false);
     onClose();
-  }, [account, onClose, onSuccess, selectedNft, web3]);
+  }, [account, chainId, onClose, onSuccess, selectedNft, web3]);
 
   return (
     <>
-      <Modal {...{ isOpen, onClose }} maxWidth="900px">
+      <Modal {...{ isOpen, onClose }} maxWidth="1280px">
         <Wrapper>
           <Typography variant="h2">Select NFT for the bartex</Typography>
           <NftsWrapper>
             {userNfts.map(
               (nft, index) =>
                 nft.image && (
-                  <NftsItem key={index} onClick={() => setSelectedNft(nft)}>
+                  <NftsItem
+                    key={index}
+                    onClick={() => setSelectedNft(nft)}
+                    selected={selectedNft === nft}
+                  >
                     <ImageWrapper>
                       <Img hasPlaceholder src={nft.image} />
                     </ImageWrapper>
