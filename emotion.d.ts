@@ -1,6 +1,6 @@
 import { CSSObject, Theme, css } from '@emotion/react';
 
-import { colors, media, typography } from '../styled';
+import { colors, media, typography } from './src/styled';
 
 declare module '@emotion/react' {
   export interface Theme {
